@@ -10,9 +10,9 @@ import {
 import NavbarMinimal from "../components/Navbar";
 import HeaderAction from "../components/Header";
 
-export default function AppShell_() {
+export default function AppShell_({ props }) {
   const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
+  console.log("hello");
   return (
     <AppShell
       styles={{
@@ -28,7 +28,7 @@ export default function AppShell_() {
       navbar={<NavbarMinimal />}
       header={<HeaderAction />}
     >
-      <h3>this is the main text.</h3>
+      {props}
     </AppShell>
   );
 }

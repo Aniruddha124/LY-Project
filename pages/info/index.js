@@ -7,10 +7,8 @@ import AppShell_ from "../../components/AppBarResp"
 
 export default function Demo() {
     return (
-        <AppShell_>
-            <>
-                <h1>this is the inside text</h1>
-            </>
-        </AppShell_>
+        <>
+            <h1>this is the inside text</h1>
+        </>
     );
 }

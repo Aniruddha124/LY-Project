@@ -1,8 +1,11 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
+import { AppShell, ColorScheme, ColorSchemeProvider, Header, MantineProvider, useMantineTheme } from '@mantine/core';
 import { useState } from 'react';
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
+import NavbarMinimal from '../components/Navbar';
+import HeaderAction from "../components/Header";
+
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -16,11 +19,12 @@ export default function App(props: AppProps) {
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   useHotkeys([['mod+J', () => toggleColorScheme()]]);
+  const theme = useMantineTheme();
 
   return (  
     <>
       <Head>
-        <title>Page title</title>
+        <title>Search</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 
@@ -30,7 +34,20 @@ export default function App(props: AppProps) {
         withNormalizeCSS
         theme={{ colorScheme }}
       >
-        <Component {...pageProps} />
+      <AppShell
+      styles={(theme) => ({
+        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },
+      })}
+      navbarOffsetBreakpoint="sm"
+      asideOffsetBreakpoint="sm"
+      navbar={<NavbarMinimal />}
+      // header={<HeaderAction />}
+      header={<HeaderAction />}
+    >
+      {/* {props} */}
+      <Component {...pageProps} />
+    </AppShell>
+        
       </MantineProvider>
       </ColorSchemeProvider>
     </>

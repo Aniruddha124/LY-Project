@@ -69,12 +69,12 @@ interface HeaderActionProps {
   }[];
 }
 
-export default function HeaderAction({ links }: HeaderActionProps) {
+export default function HeaderAction() {
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
 
   return (
-    <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
+    <Header height={HEADER_HEIGHT} sx={{ borderBottom: 4}}    mb={120} >
       <Container className={classes.inner} fluid>
         <Group>
           {/* <Burger
@@ -85,7 +85,7 @@ export default function HeaderAction({ links }: HeaderActionProps) {
           /> */}
           <IconCurrencyEthereum  size={38} />
           <Space w="sm" />
-          <h4>AppName</h4>
+          <h3>VerEth</h3>
         </Group>
         <ToggleDarkMode/>
       </Container>

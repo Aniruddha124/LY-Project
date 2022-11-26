@@ -10,7 +10,7 @@ import {
   Space,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconChevronDown ,IconCurrencyEthereum} from "@tabler/icons";
+import { IconChevronDown ,IconCurrencyEthereum, IconCurrencyBitcoin } from "@tabler/icons";
 import ToggleDarkMode from "./toggleDarkMode";
 
 const HEADER_HEIGHT = 60;
@@ -83,9 +83,9 @@ export default function HeaderAction() {
             className={classes.burger}
             size="sm"
           /> */}
-          <IconCurrencyEthereum  size={38} />
+          <IconCurrencyBitcoin  size={38} />
           <Space w="sm" />
-          <h3>VerEth</h3>
+          <h3>VerBTC</h3>
         </Group>
         <ToggleDarkMode/>
       </Container>

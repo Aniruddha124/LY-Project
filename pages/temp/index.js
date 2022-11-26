@@ -1,50 +1,22 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
+import React, { Suspense } from "react";
+import BitcoinModel from "../../components/Bit3"
+import { Canvas } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei"
 
+export default function temp() {
 
-// const ReactSpeedometer = dynamic(
-//     () => import('react-d3-speedometer'),
-//     { ssr: false },
-// );
-
-const ReactSpeedometer = dynamic(() => import("react-d3-speedometer"), { ssr: false });
-
-function Speedometer() {
-    console.log("printing", ReactSpeedometer);
     return (
-        <div>
-            <ReactSpeedometer
-                width={500}
-                needleHeightRatio={0.7}
-                value={777}
-                customSegmentStops={[0, 250, 750, 1000]}
-                segmentColors={['#9399ff', '#14ffec', '#00bbf0']}
-                currentValueText="How are you?"
-                customSegmentLabels={[
-                    {
-                        text: 'Good',
-                        position: 'OUTSIDE',
-                        color: '#d8dee9',
-                    },
-                    {
-                        text: 'Great',
-                        position: 'OUTSIDE',
-                        color: '#d8dee9',
-                    },
-                    {
-                        text: 'Awesome!',
-                        position: 'OUTSIDE',
-                        color: '#d8dee9',
-                    },
-                ]}
-                ringWidth={47}
-                needleTransitionDuration={3333}
-                needleTransition="easeElastic"
-                needleColor={'#a7ff83'}
-                textColor={'#d8dee9'}
-            />
-        </div>
-    );
-}
+        <>
+            <Canvas>
+                <OrbitControls enableZoom={false} />
+                <ambientLight intensity={0.8} />
+                <directionalLight position={[10, 20, 20]} intensity={0.5} />
+                <Suspense fallback={null}>
+                    <BitcoinModel />
+                </Suspense>
+            </Canvas>
+        </>
+    )
 
-export default Speedometer;
+
+}

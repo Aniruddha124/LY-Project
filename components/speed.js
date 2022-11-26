@@ -1,36 +1,34 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-// const ReactSpeedometer = dynamic(
-//     () => import('react-d3-speedometer'),
-//     { ssr: false },
-// );
-
 const ReactSpeedometer = dynamic(() => import("react-d3-speedometer"), { ssr: false });
 
 function Speedometer() {
     return (
-        <div>
+        <div >
             <ReactSpeedometer
-                width={500}
-                needleHeightRatio={0.7}
-                value={777}
+                width={700}
+                height={450}
+                style={{ maxWidth: "100% !important" }}
+                needleHeightRatio={0.6}
+                value={800}
+                // fluidWidth={true}
                 customSegmentStops={[0, 250, 750, 1000]}
-                segmentColors={['#9399ff', '#14ffec', '#00bbf0']}
-                currentValueText="How are you?"
+                segmentColors={['#fa5252', '#ffa94d', '#a9e34b']}
+                currentValueText="Safety level"
                 customSegmentLabels={[
                     {
-                        text: 'Good',
+                        text: 'Fraudulent',
                         position: 'OUTSIDE',
                         color: '#d8dee9',
                     },
                     {
-                        text: 'Great',
+                        text: 'Suspicious',
                         position: 'OUTSIDE',
                         color: '#d8dee9',
                     },
                     {
-                        text: 'Awesome!',
+                        text: 'Safe',
                         position: 'OUTSIDE',
                         color: '#d8dee9',
                     },

@@ -4,7 +4,7 @@ import Axios from "axios";
 
 const getAddressDetails = async (address) => {
     const res = await Axios.get(`https://blockchain.info/rawaddr/${address}`,{ crossdomain: true });
-    const data = res.data;
+    const data =  JSON.stringify(res.data);
     console.log("data: " + data);
     return data;
 }

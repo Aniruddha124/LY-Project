@@ -23,7 +23,7 @@ const Details = () => {
             const addressDetails = getAddressDetails(address);
             setAddressDetails(addressDetails);
         }
-      }, [address]);
+      }, []);
 
     return ( 
         <div>

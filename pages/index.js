@@ -1,6 +1,7 @@
 import { TextInput, Input, Tooltip, Center, Button } from '@mantine/core';
 import { IconCurrencyBitcoin } from "@tabler/icons";
 import { useState, useEffect } from "react";
+import Link from 'next/link';
 
 export default function Home() {
 
@@ -8,6 +9,8 @@ export default function Home() {
 
   const handleSearch = () => {
     console.log("searching for address: " + address)
+    // move to address page
+    // <Link href="/address/[id]" as={`/address/${address}`}></Link>
   }
 
   return (
@@ -25,9 +28,11 @@ export default function Home() {
           placeholder="Enter a Public Address"
           onChange={(e) => setAddress(e.target.value)}
         />
-        <Button style={{ width: 200, height: 60 }} size='xl' variant='filled' onClick={handleSearch}>
-          Search
-        </Button>
+        <Link href="/address/[id]" as={`/address/${address}`}>
+          <Button style={{ width: 200, height: 60 }} size='xl' variant='filled' onClick={handleSearch}>
+            Search
+          </Button>
+        </Link>
       </Center>
     </div>
   )

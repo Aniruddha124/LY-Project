@@ -1,8 +1,11 @@
-import { TextInput, Input, Tooltip, Center, Button } from '@mantine/core';
+import { TextInput,Flex, Input, Tooltip, Center, Button } from '@mantine/core';
 import { IconCurrencyBitcoin } from "@tabler/icons";
 import { useState, useEffect } from "react";
 import Link from 'next/link';
-import { Text } from '@mantine/core';
+import React, { Suspense } from "react";
+import BitcoinModel from "../components/Bit3"
+import { Canvas } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei"
 
 export default function Home() {
 
@@ -15,46 +18,46 @@ export default function Home() {
   }
 
   return (
-    <div style={{marginTop:'13%'}}>
-      <Center style={{display:'flex'}}>
-        <Text
-          variant="gradient"
-          gradient={{ from: '#bdc3c7', to: '#2c3e50', deg: 135 }}
-          sx={{ fontFamily: 'Greycliff CF, sans-serif' }}
-          ta="center"
-          fw={800}
-          style={{fontSize: '40px'}}
-         >
-          Ver.
-        </Text>
-        <Text style={{fontSize: '40px', color: '#e4b810'}} fw={800}>B</Text>
-        <Text style={{fontSize: '40px', color: '#e4b810'}} fw={800}>T</Text>
-        <Text style={{fontSize: '40px', color: '#e4b810'}} fw={800}>C</Text>
-      </Center>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        marginTop: '20px',
-      }}>
-        
-        <Center style={{width: '80%'}}>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: "column",
+      width: '100%',
+      height: '60vh'
+    }}>
+      <Canvas>
+        <OrbitControls enableZoom={false} />
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[10, 20, 20]} intensity={0.5} />
+        <Suspense fallback={null}>
+          <BitcoinModel />
+        </Suspense>
+      </Canvas>
+      <Flex
+        gap="md"
+        justify="center"
+        align="center"
+        direction="row"
+        wrap="wrap"
+        style={{width:'100%'}}
+      >
+        <div style={{ width: '60%' }}>
           <Input
             icon={<IconCurrencyBitcoin size={16} />}
-            style={{ width: '100%' }}
             size='xl'
             placeholder="Enter a Public Address"
             onChange={(e) => setAddress(e.target.value)}
           />
+        </div>
+        <div>
           <Link href="/address/[id]" as={`/address/${address}`}>
             <Button style={{ width: '100%'}} size='xl' variant='filled' onClick={handleSearch}>
               Search
             </Button>
           </Link>
-        </Center>
-      </div>
+        </div>
+      </Flex>
     </div>
-
   )
 }

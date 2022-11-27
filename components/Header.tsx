@@ -85,7 +85,7 @@ export default function HeaderAction() {
           /> */}
           <IconCurrencyBitcoin  size={38} />
           <Space w="sm" />
-          <h3>VerBTC</h3>
+          <h3 style={{fontWeight: 800}}>VerBTC</h3>
         </Group>
         <ToggleDarkMode/>
       </Container>

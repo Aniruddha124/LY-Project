@@ -6,22 +6,25 @@ source: https://sketchfab.com/3d-models/bitcoin-logo-4c4d85419c924df4abfb83a76dd
 title: Bitcoin Logo
 */
 
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef } from "react";
+import { useGLTF } from "@react-three/drei";
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('/bitcoin.gltf')
+  const { nodes, materials } = useGLTF("/bitcoin.gltf");
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group scale={1} position={[0, 0, 0]}>
-            <mesh geometry={nodes.Bitcoin_Logo__0.geometry} material={materials['Scene_-_Root']} />
+            <mesh
+              geometry={nodes.Bitcoin_Logo__0.geometry}
+              material={materials["Scene_-_Root"]}
+            />
           </group>
         </group>
       </group>
     </group>
-  )
+  );
 }
 
-useGLTF.preload('/bitcoin.gltf')
+useGLTF.preload("/bitcoin.gltf");

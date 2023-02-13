@@ -10,7 +10,11 @@ import {
   Space,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconChevronDown ,IconCurrencyEthereum, IconCurrencyBitcoin } from "@tabler/icons";
+import {
+  IconChevronDown,
+  IconCurrencyEthereum,
+  IconCurrencyBitcoin,
+} from "@tabler/icons";
 import ToggleDarkMode from "./toggleDarkMode";
 
 const HEADER_HEIGHT = 60;
@@ -63,9 +67,9 @@ const useStyles = createStyles((theme) => ({
 
 interface HeaderActionProps {
   links: {
-    link: string,
-    label: string,
-    links: { link: string, label: string }[],
+    link: string;
+    label: string;
+    links: { link: string; label: string }[];
   }[];
 }
 
@@ -74,7 +78,7 @@ export default function HeaderAction() {
   const [opened, { toggle }] = useDisclosure(false);
 
   return (
-    <Header height={HEADER_HEIGHT} sx={{ borderBottom: 4}}    mb={120} >
+    <Header height={HEADER_HEIGHT} sx={{ borderBottom: 4 }} mb={120}>
       <Container className={classes.inner} fluid>
         <Group>
           {/* <Burger
@@ -83,11 +87,11 @@ export default function HeaderAction() {
             className={classes.burger}
             size="sm"
           /> */}
-          <IconCurrencyBitcoin  size={38} />
+          <IconCurrencyBitcoin size={38} />
           <Space w="sm" />
-          <h3 style={{fontWeight: 800}}>VerBTC</h3>
+          <h3 style={{ fontWeight: 800 }}>VerBTC</h3>
         </Group>
-        <ToggleDarkMode/>
+        <ToggleDarkMode />
       </Container>
     </Header>
   );

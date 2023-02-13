@@ -6,22 +6,25 @@ source: https://sketchfab.com/3d-models/bitcoin-ff17dab54b044d789d05ae7c8dfb9808
 title: Bitcoin
 */
 
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef } from "react";
+import { useGLTF } from "@react-three/drei";
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('./bit.gltf')
+  const { nodes, materials } = useGLTF("./bit.gltf");
   return (
-    <group  {...props} dispose={null}>
+    <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group scale={0.03} position={[0, 0, 0]}>
-            <mesh geometry={nodes.Cylinder002__0.geometry} material={materials['Scene_-_Root']} />
+            <mesh
+              geometry={nodes.Cylinder002__0.geometry}
+              material={materials["Scene_-_Root"]}
+            />
           </group>
         </group>
       </group>
     </group>
-  )
+  );
 }
 
-useGLTF.preload('/bit.gltf')
+useGLTF.preload("/bit.gltf");

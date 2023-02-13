@@ -6,21 +6,27 @@ source: https://sketchfab.com/3d-models/low-poly-bitcoin-ec0b85df2dde42eda90b571
 title: Low Poly Bitcoin
 */
 
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import React, { useRef } from "react";
+import { useGLTF } from "@react-three/drei";
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('/bit3.gltf')
+  const { nodes, materials } = useGLTF("/bit3.gltf");
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group scale={0.02} rotation={[Math.PI / 2, 0, 0]}>
-          <mesh geometry={nodes.BitCoin_LowPoly_FFC107_0.geometry} material={materials.FFC107} />
-          <mesh geometry={nodes.BitCoin_LowPoly_FFFFFF_0.geometry} material={materials.FFFFFF} />
+          <mesh
+            geometry={nodes.BitCoin_LowPoly_FFC107_0.geometry}
+            material={materials.FFC107}
+          />
+          <mesh
+            geometry={nodes.BitCoin_LowPoly_FFFFFF_0.geometry}
+            material={materials.FFFFFF}
+          />
         </group>
       </group>
     </group>
-  )
+  );
 }
 
-useGLTF.preload('/bit3.gltf')
+useGLTF.preload("/bit3.gltf");

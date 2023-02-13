@@ -7,8 +7,8 @@ import {
   Burger,
   useMantineTheme,
 } from "@mantine/core";
-import NavbarMinimal from "../components/Navbar";
-import HeaderAction from "../components/Header";
+import NavbarMinimal from "./navbar";
+import HeaderAction from "./header";
 
 export default function AppShell_({ props }) {
   const theme = useMantineTheme();

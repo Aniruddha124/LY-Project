@@ -1,6 +1,6 @@
 import { Button } from "@mantine/core";
 import ToggleDarkMode from "../../components/toggleDarkMode";
-import NavbarMinimal from "../../components/Navbar.tsx";
+import NavbarMinimal from "../../components/navbar.tsx";
 
 import {
   Header,

@@ -3,33 +3,34 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 const getAddressDetails = async (address) => {
-    const res = await Axios.get(`https://blockchain.info/rawaddr/${address}`,{ crossdomain: true });
-    const data =  JSON.stringify(res.data);
-    console.log("data: " + data);
-    return data;
-}
+  const res = await Axios.get(`https://blockchain.info/rawaddr/${address}`, {
+    crossdomain: true,
+  });
+  const data = JSON.stringify(res.data);
+  console.log("data: " + data);
+  return data;
+};
 
 const Details = () => {
-    
-    const router = useRouter();
+  const router = useRouter();
 
-    const address = router.query.id;
-    console.log("address: " + address);
+  const address = router.query.id;
+  console.log("address: " + address);
 
-    const [addressDetails, setAddressDetails] = useState([]);
+  const [addressDetails, setAddressDetails] = useState([]);
 
-    useEffect(() => {
-        if (address !== undefined || address !== "") {
-            const addressDetails = getAddressDetails(address);
-            setAddressDetails(addressDetails);
-        }
-      }, []);
+  useEffect(() => {
+    if (address !== undefined || address !== "") {
+      const addressDetails = getAddressDetails(address);
+      setAddressDetails(addressDetails);
+    }
+  }, []);
 
-    return ( 
-        <div>
-            <h1>Details</h1>
-        </div>
-     );
-}
- 
+  return (
+    <div>
+      <h1>Details</h1>
+    </div>
+  );
+};
+
 export default Details;

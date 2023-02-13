@@ -1,55 +1,71 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
-import { AppShell, ColorScheme, ColorSchemeProvider, Header, MantineProvider, useMantineTheme } from '@mantine/core';
-import { useState } from 'react';
-import { useHotkeys, useLocalStorage } from '@mantine/hooks';
-import NavbarMinimal from '../components/Navbar';
-import HeaderAction from "../components/Header";
-
+import { AppProps } from "next/app";
+import "../styles/globals.css";
+import Head from "next/head";
+import {
+  AppShell,
+  ColorScheme,
+  ColorSchemeProvider,
+  Header,
+  MantineProvider,
+  useMantineTheme,
+} from "@mantine/core";
+import { useState } from "react";
+import { useHotkeys, useLocalStorage } from "@mantine/hooks";
+import NavbarMinimal from "../components/navbar";
+import HeaderAction from "../components/header";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'mantine-color-scheme',
-    defaultValue: 'light',
+    key: "mantine-color-scheme",
+    defaultValue: "light",
     getInitialValueInEffect: true,
   });
 
   const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
-  useHotkeys([['mod+J', () => toggleColorScheme()]]);
+  useHotkeys([["mod+J", () => toggleColorScheme()]]);
   const theme = useMantineTheme();
 
-  return (  
+  return (
     <>
       <Head>
         <title>Search</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </Head>
 
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{ colorScheme }}
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
       >
-      <AppShell
-      styles={(theme) => ({
-        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{ colorScheme }}
+        >
+          <AppShell
+            styles={(theme) => ({
+              main: {
+                backgroundColor:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[8]
+                    : theme.colors.gray[0],
               },
-      })}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
-      navbar={<NavbarMinimal />}
-      // header={<HeaderAction />}
-      header={<HeaderAction />}
-    >
-      {/* {props} */}
-      <Component {...pageProps} />
-    </AppShell>
-        
-      </MantineProvider>
+            })}
+            navbarOffsetBreakpoint="sm"
+            asideOffsetBreakpoint="sm"
+            navbar={<NavbarMinimal />}
+            // header={<HeaderAction />}
+            header={<HeaderAction />}
+          >
+            {/* {props} */}
+            <Component {...pageProps} />
+          </AppShell>
+        </MantineProvider>
       </ColorSchemeProvider>
     </>
   );

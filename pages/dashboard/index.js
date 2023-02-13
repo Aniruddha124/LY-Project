@@ -1,4 +1,5 @@
 import StatsRing from "../../components/statsRing";
+import TransactionsTable from "../../components/transactionsTable";
 
 export default function Dashboard() {
   const data = [
@@ -27,6 +28,14 @@ export default function Dashboard() {
   return (
     <>
       <StatsRing data={data} />
+      <div className="mt-20 grid grid-cols-2 gap-10">
+        <div>
+          <TransactionsTable />
+        </div>
+        <div>
+          <TransactionsTable />
+        </div>
+      </div>
     </>
   );
 }

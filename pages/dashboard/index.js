@@ -1,5 +1,9 @@
 import StatsRing from "../../components/statsRing";
 import TransactionsTable from "../../components/transactionsTable";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { Paper } from "@mantine/core";
+// import { FileDownloadIcon, FileUploadIcon } from "@mui/icons-material";
 
 export default function Dashboard() {
   const data = [
@@ -18,7 +22,7 @@ export default function Dashboard() {
       type: "type2",
     },
     {
-      label: "something 1",
+      label: "something 3",
       progress: 20,
       color: "red",
       icon: "danger",
@@ -27,14 +31,20 @@ export default function Dashboard() {
   ];
   return (
     <>
-      <StatsRing data={data} />
-      <div className="mt-20 grid grid-cols-2 gap-10">
-        <div>
+      <div className="stats mt-5">
+        <StatsRing data={data} />
+      </div>
+      <div className="grid grid-cols-2 gap-10  mt-8">
+        <Paper shadow="xs" p="md">
+          <FileDownloadIcon sx={{ color: "green" }} />
+          <h3 className="mb-3 ml-2 inline-block">Inflow</h3>
           <TransactionsTable />
-        </div>
-        <div>
+        </Paper>
+        <Paper shadow="xs" p="md">
+          <FileUploadIcon sx={{ color: "green" }} />
+          <h3 className="mb-3 ml-2 inline-block">Outflow</h3>
           <TransactionsTable />
-        </div>
+        </Paper>
       </div>
     </>
   );

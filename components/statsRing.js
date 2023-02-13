@@ -35,7 +35,7 @@ export default function StatsRing({ data }) {
     const color =
       stat.progress <= 33 ? "red" : stat.progress <= 66 ? "orange" : "green";
     return (
-      <Paper withBorder radius="md" p="xs" key={stat.label}>
+      <Paper withBorder radius="md" p="sm" key={stat.label}>
         <Group className="relative">
           <RingProgress
             size={80}

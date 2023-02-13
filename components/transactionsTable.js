@@ -22,9 +22,9 @@ export default function TransactionsTable() {
   }, [page, pageSize]);
 
   return (
-    <Box sx={{ height: 300 }}>
+    <Box sx={{ height: 400 }}>
       <DataTable
-        withBorder
+        highlightOnHover
         records={records}
         columns={[
           { accessor: "Timestamp", width: 100 },

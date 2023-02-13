@@ -22,7 +22,7 @@ export default function TransactionsTable() {
   }, [page, pageSize]);
 
   return (
-    <Box sx={{ height: 400 }}>
+    <Box sx={{ height: 400, wordWrap: "break-word" }}>
       <DataTable
         highlightOnHover
         records={records}

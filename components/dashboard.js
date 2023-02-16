@@ -11,27 +11,78 @@ import { createContext, useContext } from "react";
 
 export const TransactionHashContext = createContext();
 
-export default function Dashboard({ inputData, outputData, loading, error }) {
+export default function Dashboard({
+  walletHash,
+  inputData,
+  outputData,
+  loading,
+  error,
+}) {
   const [info, setInfo] = useState({ hashID: null });
 
+  // to be moved to a level before
+
+  const [modelScore, setModelScore] = useState(0);
+  const [webScore, setWebScore] = useState(0);
+
+  useEffect(() => {
+    async function fetchModelScore() {
+      try {
+        const response = await fetch(
+          `http://127.0.0.1:5000/predict/${walletHash}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setModelScore(data.malicious_score * 100);
+
+        // const
+
+        const response2 = await fetch(
+          `http://127.0.0.1:5000/blacklisted/${walletHash}`
+        );
+        if (!response2.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data2 = await response2.json();
+        webScore(data2.malicious_score == "invalid" ? 0 : 100);
+
+        // setLoading(false);
+      } catch (error) {
+        // setError(error);
+        console.log(error);
+      }
+    }
+
+    fetchModelScore();
+  }, []);
+
+  function getColor(score) {
+    return score <= 33 ? "red" : score <= 66 ? "orange" : "green";
+  }
+
+  function getIcon(score) {
+    return score <= 33 ? "danger" : score <= 66 ? "neutral" : "safe";
+  }
   const data = [
     {
       label: "Model trust score",
-      progress: 88,
-      color: "red",
-      icon: "safe",
+      progress: modelScore,
+      color: getColor(modelScore),
+      icon: getIcon(modelScore),
       type: "type1",
     },
     {
       label: "Web trust score",
-      progress: 60,
-      color: "green",
-      icon: "neutral",
+      progress: webScore,
+      color: getColor(webScore),
+      icon: getIcon(webScore),
       type: "type2",
     },
     {
       label: "Coin data trust score",
-      progress: 20,
+      progress: 0,
       color: "red",
       icon: "danger",
       type: "type3",

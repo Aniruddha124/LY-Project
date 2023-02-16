@@ -170,7 +170,7 @@ export default function WalletDetails({ walletData, walletHash }) {
               miw={{ base: "100%", sm: "100%", md: "80%", lg: "80%" }}
               align="center"
             >
-              <Speedometer />
+              <Speedometer  walletHash={walletHash}/>
             </Paper>
           </Flex>
         </Grid.Col>

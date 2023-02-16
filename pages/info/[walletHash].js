@@ -81,6 +81,7 @@ export default function Details() {
 
       <Tabs.Panel value="dashboard" pt="xs">
         <Dashboard
+          walletHash={walletHash}
           inputData={inputData}
           outputData={outputData}
           loading={loading}

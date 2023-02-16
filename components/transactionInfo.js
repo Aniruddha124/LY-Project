@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Text, Divider, Card } from "@mantine/core";
-import { TransactionHashContext } from "../pages/dashboard/index";
+import { TransactionHashContext } from "../components/dashboard";
 
 export default function TransactionInfo() {
-  const { info } = useContext(TransactionHashContext);
+  const { info, setInfo } = useContext(TransactionHashContext);
 
   return (
     <>

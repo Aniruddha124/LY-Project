@@ -11,9 +11,8 @@ export default function Home() {
   const [address, setAddress] = useState("");
 
   const handleSearch = () => {
+    setAddress("");
     console.log("searching for address: " + address);
-    // move to address page
-    // <Link href="/address/[id]" as={`/address/${address}`}></Link>
   };
 
   return (
@@ -52,7 +51,7 @@ export default function Home() {
           />
         </div>
         <div>
-          <Link href="/address/[id]" as={`/address/${address}`}>
+          <Link href="/info/[id]" as={`/info/${address}`}>
             <Button
               style={{ width: "100%" }}
               size="xl"

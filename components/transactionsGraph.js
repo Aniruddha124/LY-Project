@@ -7,7 +7,7 @@ import ReactFlow, {
   useNodesState,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import { TransactionHashContext } from "../pages/dashboard/index";
+import { TransactionHashContext } from "../components/dashboard.js";
 import TextUpdaterNode from "./TextUpdaterNode.js";
 
 const rfStyle = {
@@ -84,7 +84,6 @@ const nodeTypes = { textUpdater: TextUpdaterNode };
 
 function Flow() {
   const { info, setInfo } = useContext(TransactionHashContext);
-  console.log("state is", info);
 
   const [nodes, setNodes] = useNodesState(initialNodes);
   const [edges, setEdges] = useEdgesState(initialEdges);

@@ -33,6 +33,7 @@
     "react-d3-speedometer": "^1.1.0",
     "react-dom": "18.2.0",
     "react-flow-renderer": "^10.3.17",
+    "react-graph-vis": "^1.0.7",
     "react-scripts": "^5.0.1",
     "reactflow": "^11.5.5",
     "three": "^0.146.0"

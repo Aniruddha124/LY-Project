@@ -122,9 +122,9 @@ export default function Dashboard({
 
   return (
     <>
-      <div className="stats mt-5">
+      {/* <div className="stats mt-5">
         <StatsRing data={data} />
-      </div>
+      </div> */}
       <div className="grid md:grid-cols-2 gap-10  mt-8">
         <Paper shadow="xs" p="md">
           <FileDownloadIcon sx={{ color: "green" }} />

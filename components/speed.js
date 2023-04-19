@@ -1,6 +1,8 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import {IconAlertTriangle ,IconCircleCheck} from "@tabler/icons";
+import { Flex,Text} from "@mantine/core";
 
 const ReactSpeedometer = dynamic(() => import("react-d3-speedometer"), {
   ssr: false,
@@ -46,7 +48,7 @@ function Speedometer({ walletHash }) {
 
   return (
     <div>
-      <ReactSpeedometer
+      {/* <ReactSpeedometer
         width={700}
         height={450}
         style={{ maxWidth: "100% !important" }}
@@ -77,7 +79,46 @@ function Speedometer({ walletHash }) {
         needleTransition="easeElastic"
         needleColor={"#a7ff83"}
         textColor={"#d8dee9"}
-      />
+      /> */}
+      <div>
+        {modelScore ? 
+        (
+          <Flex
+                gap="m"
+                justify={{ sm: 'center' }}
+                align="flex-start"
+                direction="row"
+                wrap="wrap"
+               
+                >
+            <IconCircleCheck color="#198754" size={148} />
+            <Text m={"xl"} ta="center" style={{ wordWrap: "break-word" }}>
+              You can proceed with the given Wallet Address for transactions. 
+              This is a safe wallet address based on our model predection.
+              </Text>
+          </Flex>
+          
+        )
+        :
+        (
+          <Flex 
+              gap="m"
+              justify={{ sm: 'center' }}
+              align="flex-start"
+              direction="row"
+              wrap="wrap">
+             <IconAlertTriangle color="red" size={148} />
+             <Text m={"xl"} >
+              Proceed at your own risk. 
+              The following wallet address may be involved in ilegal activities as per our model prediction.
+              </Text>
+             
+
+          </Flex>
+         
+       
+        )}
+      </div>
     </div>
   );
 }

@@ -104,11 +104,11 @@ export default function NavbarMinimal() {
           </Stack>
         </Navbar.Section>
 
-        <Navbar.Section>
+        {/* <Navbar.Section>
           <Stack justify="center" spacing={0}>
             <NavbarLink icon={IconLogout} label="Logout" />
           </Stack>
-        </Navbar.Section>
+        </Navbar.Section> */}
       </Navbar>
     </>
   );

@@ -90,10 +90,10 @@ export default function Dashboard({
   ];
 
   // API to fetch the wallet transaction details
-  // const [inputData, setInputData] = useState(null);
-  // const [outputData, setOutputData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
+  // const [transactionInputData, setTransactionInputData] = useState(null);
+  // const [transactionOutputData, setTransactionOutputData] = useState(null);
+  // const [transactionLoading, setTransactionLoading] = useState(true);
+  // const [transactionError, setTransactionError] = useState(null);
 
   // useEffect(() => {
   //   async function fetchData() {
@@ -154,7 +154,7 @@ export default function Dashboard({
           <TransactionHashContext.Provider value={{ info, setInfo }}>
             <div className="wrapper grid md:grid-cols-2 gap-10">
               <div className="left ">
-                {loading ? <Text>Loading</Text> : <Flow />}
+                {loading ? <Text>Loading</Text> : <Flow/>}
               </div>
               <div className="right">
                 {loading ? <Text>Loading</Text> : <TransactionInfo />}

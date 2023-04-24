@@ -1,9 +1,12 @@
 import { Tabs, Text, Paper } from "@mantine/core";
-import { IconPhoto, IconMessageCircle, IconSettings } from "@tabler/icons";
+import { IconPhoto, IconMessageCircle, IconSettings} from "@tabler/icons";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { useRouter } from "next/router";
 import WalletDetails from "../../components/primaryInfo";
 import Dashboard from "../../components/dashboard";
 import { useEffect, useState } from "react";
+import Graph_Test from "../graph/[walletHash]";
+
 
 export default function Details() {
   const router = useRouter();
@@ -32,6 +35,8 @@ export default function Details() {
           setInputData(data.bitcoin.inputs);
           setOutputData(data.bitcoin.outputs);
           setLoading(false);
+
+          console.log(inputData);
         } catch (error) {
           setError(error);
         }
@@ -69,6 +74,9 @@ export default function Details() {
         <Tabs.Tab value="dashboard" icon={<IconMessageCircle size={20} />}>
           More info
         </Tabs.Tab>
+        <Tabs.Tab value="graph" icon={<AccountTreeIcon size={20} />}>
+         Graph
+        </Tabs.Tab>
       </Tabs.List>
 
       <Tabs.Panel value="primaryInfo" pt="xs">
@@ -79,6 +87,7 @@ export default function Details() {
         )}
       </Tabs.Panel>
 
+
       <Tabs.Panel value="dashboard" pt="xs">
         <Dashboard
           walletHash={walletHash}
@@ -88,6 +97,12 @@ export default function Details() {
           error={error}
         />
       </Tabs.Panel>
+
+      <Tabs.Panel value="graph" pt="xs">
+        <Graph_Test/>
+      </Tabs.Panel>
+
+
     </Tabs>
   );
 }

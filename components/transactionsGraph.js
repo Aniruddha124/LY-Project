@@ -1,4 +1,4 @@
-import { useCallback, useState, useContext } from "react";
+import { useCallback, useState, useContext, useEffect } from "react";
 import ReactFlow, {
   addEdge,
   applyEdgeChanges,
@@ -107,6 +107,9 @@ function Flow() {
   const onEdgeClick = (event, edge) => {
     setInfo({ ...edge, hashID: edge.transactionHash });
   };
+
+
+
 
   return (
     <>

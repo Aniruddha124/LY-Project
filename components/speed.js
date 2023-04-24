@@ -110,7 +110,7 @@ function Speedometer({ walletHash }) {
              <IconAlertTriangle color="red" size={148} />
              <Text m={"xl"} >
               Proceed at your own risk. 
-              The following wallet address may be involved in ilegal activities as per our model prediction.
+              The following wallet address may be involved in illegal activities as per our model prediction.
               </Text>
              
 

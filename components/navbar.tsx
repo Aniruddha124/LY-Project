@@ -89,7 +89,6 @@ export default function NavbarMinimal() {
   const links = mockdata.map((link, index) => (
     <NavbarLink
       {...link}
-      key={link.label}
       active={index === active}
       onClick={() => setActive(index)}
     />

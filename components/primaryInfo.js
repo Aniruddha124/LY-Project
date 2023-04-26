@@ -33,6 +33,7 @@ export default function WalletDetails({ walletData, walletHash }) {
               p="lg"
               m={"xs"}
               maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
+              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
             >
               <Flex
                 gap="xs"
@@ -58,6 +59,7 @@ export default function WalletDetails({ walletData, walletHash }) {
               p="lg"
               m={"xs"}
               maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
+              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
             >
               <Flex
                 gap="xs"
@@ -82,6 +84,7 @@ export default function WalletDetails({ walletData, walletHash }) {
               p="lg"
               m={"xs"}
               maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
+              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
             >
               <Flex
                 gap="xs"
@@ -105,7 +108,7 @@ export default function WalletDetails({ walletData, walletHash }) {
               p="lg"
               m={"xs"}
               maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
-              style={{}}
+              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
             >
               <Flex
                 gap="xs"
@@ -129,6 +132,7 @@ export default function WalletDetails({ walletData, walletHash }) {
               p="lg"
               m={"xs"}
               maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
+              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
             >
               <Flex
                 gap="xs"
@@ -169,8 +173,9 @@ export default function WalletDetails({ walletData, walletHash }) {
               m={"xs"}
               miw={{ base: "100%", sm: "100%", md: "80%", lg: "80%" }}
               align="center"
+              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
             >
-              <Speedometer  walletHash={walletHash}/>
+              <Speedometer walletHash={walletHash} />
             </Paper>
           </Flex>
         </Grid.Col>

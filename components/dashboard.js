@@ -89,56 +89,37 @@ export default function Dashboard({
     },
   ];
 
-  // API to fetch the wallet transaction details
-  // const [transactionInputData, setTransactionInputData] = useState(null);
-  // const [transactionOutputData, setTransactionOutputData] = useState(null);
-  // const [transactionLoading, setTransactionLoading] = useState(true);
-  // const [transactionError, setTransactionError] = useState(null);
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     if (walletHash != undefined)
-  //       try {
-  //         // console.log(`http://127.0.0.1:5000/transactions/${walletHash}`);
-  //         const response = await fetch(
-  //           `http://127.0.0.1:5000/transactions/${walletHash}`
-  //         );
-  //         if (!response.ok) {
-  //           throw new Error("Network response was not ok");
-  //         }
-  //         const data = await response.json();
-  //         console.log(data);
-  //         setInputData(data.bitcoin.inputs);
-  //         setOutputData(data.bitcoin.outputs);
-  //         setLoading(false);
-  //       } catch (error) {
-  //         setError(error);
-  //         setLoading(false);
-  //       }
-  //   }
-
-  //   fetchData();
-  // }, [walletHash]);
-
   return (
     <>
-      {/* <div className="stats mt-5">
-        <StatsRing data={data} />
-      </div> */}
-      <div className="grid md:grid-cols-2 gap-10  mt-8">
-        <Paper shadow="xs" p="md">
-          <FileDownloadIcon sx={{ color: "green" }} />
-          <h3 className="mb-3 ml-2 inline-block">Inflow</h3>
+      <div className="grid gap-10 md:grid-cols-2">
+        <Paper
+          shadow="xs"
+          p="md"
+          className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+        >
+          <FileDownloadIcon sx={{ color: "#50fa7b", fontSize: "30px" }} />
+          <h3 className="inline-block mt-1 ml-2 text-xl ">Inflow</h3>
+          <hr className="mt-3 mb-6 border border-[#70AF85]" />
 
           {loading ? (
             <Text>Loading</Text>
           ) : (
-            <TransactionsTable transactionInfo={{ transactions: inputData }} />
+            <div className="width-[100%]">
+              <TransactionsTable
+                transactionInfo={{ transactions: inputData }}
+              />
+            </div>
           )}
         </Paper>
-        <Paper shadow="xs" p="md">
-          <FileUploadIcon sx={{ color: "green" }} />
-          <h3 className="mb-3 ml-2 inline-block">Outflow</h3>
+        <Paper
+          shadow="xs"
+          p="md"
+          className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+        >
+          <FileUploadIcon sx={{ color: "#50fa7b", fontSize: "30px" }} />
+          <h3 className="inline-block mt-1 ml-2 text-xl">Outflow</h3>
+          <hr className="mt-3 mb-6 border border-[#70AF85]" />
+
           {loading ? (
             <Text>Loading</Text>
           ) : (
@@ -147,14 +128,20 @@ export default function Dashboard({
         </Paper>
       </div>
 
-      <div className=" mt-8">
-        <Paper shadow="xs" p="md">
-          <AccountTreeIcon sx={{ color: "green" }} />
-          <h3 className="mb-3 ml-2 inline-block">Graph</h3>
+      <div className="mt-8 ">
+        <Paper
+          shadow="xs"
+          p="md"
+          className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+        >
+          <AccountTreeIcon sx={{ color: "#50fa7b", fontSize: "30px" }} />
+          <h3 className="inline-block mt-1 ml-2 text-xl">Transaction Graph</h3>
+          <hr className="mt-3 mb-8 border border-[#70AF85]" />
+
           <TransactionHashContext.Provider value={{ info, setInfo }}>
-            <div className="wrapper grid md:grid-cols-2 gap-10">
+            <div className="grid gap-10 wrapper md:grid-cols-2">
               <div className="left ">
-                {loading ? <Text>Loading</Text> : <Flow/>}
+                {loading ? <Text>Loading</Text> : <Flow />}
               </div>
               <div className="right">
                 {loading ? <Text>Loading</Text> : <TransactionInfo />}

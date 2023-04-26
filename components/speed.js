@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import {IconAlertTriangle ,IconCircleCheck} from "@tabler/icons";
 import { Flex,Text} from "@mantine/core";
 
-const ReactSpeedometer = dynamic(() => import("react-d3-speedometer"), {
-  ssr: false,
-});
 
 function Speedometer({ walletHash }) {
   // temp jugaad

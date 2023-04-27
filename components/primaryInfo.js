@@ -18,36 +18,40 @@ import {
   IconArrowBigTop,
   IconHash,
   IconCurrencyBitcoin,
+  IconCurrencyDollar
 } from "@tabler/icons";
+import { AnimatePresence, motion } from "framer-motion";
 
-import Speedometer from "../components/speed";
+import ModelScore from "./modelScore";
 export default function WalletDetails({ walletData, walletHash }) {
   return (
     <>
-      <Grid>
-        <Grid.Col span={12} md={5} lg={5}>
-          <Flex gap="xs" direction="column">
+      <div>
+        <div className="flex flex-row flex-wrap items-center justify-center w-full">
+          <Paper
+            shadow="md"
+            radius={"lg"}
+            p="xl"
+            align="center"
+            className="w-full text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+          >
+            <ModelScore walletHash={walletHash} />
+          </Paper>
+        </div>
+
+        <div className="mt-10">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <Paper
               shadow="md"
               radius={"md"}
-              p="lg"
-              m={"xs"}
-              maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
-              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+              className="px-6 py-5 text-black dark:text-white dark:bg-darkerbg bg-slate-100 "
             >
-              <Flex
-                gap="xs"
-                justify="flex-start"
-                align="flex-start"
-                direction="row"
-                wrap="wrap"
-              >
-                <IconWallet />
-                <Text c="teal.4" fz="lg" fw={"bold"}>
+              <div className="flex flex-row flex-wrap gap-3">
+                <IconWallet color="#bd93f9" />
+                <Text c="#bd93f9" fz="lg" className="text-white font-base md:font-bold">
                   Address{" "}
                 </Text>
-              </Flex>
-
+              </div>
               <Text mt={"md"} style={{ wordWrap: "break-word" }}>
                 {walletHash}
               </Text>
@@ -56,48 +60,32 @@ export default function WalletDetails({ walletData, walletHash }) {
             <Paper
               shadow="md"
               radius={"md"}
-              p="lg"
-              m={"xs"}
-              maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
-              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+              className="px-6 py-5 text-black dark:text-white dark:bg-darkerbg bg-slate-100 "
             >
-              <Flex
-                gap="xs"
-                justify="flex-start"
-                align="flex-start"
-                direction="row"
-                wrap="wrap"
-              >
-                <IconHash />
-                <Text c="teal.4" fz="lg" fw={"bold"}>
+              <div className="flex flex-row flex-wrap gap-3">
+                <IconHash color="#bd93f9"/>
+                <Text c="#bd93f9" fz="lg" className="text-white font-base md:font-bold">
                   Transactions{" "}
                 </Text>
-              </Flex>
+              </div>
               <Text mt={"md"}>
                 {walletData?.inputs[0].count + walletData?.outputs[0].count}
               </Text>
             </Paper>
+          </div>
 
+          <div className="grid grid-cols-1 gap-5 mt-5 md:grid-cols-2">
             <Paper
               shadow="md"
               radius={"md"}
-              p="lg"
-              m={"xs"}
-              maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
-              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+              className="px-6 py-5 text-black dark:text-white dark:bg-darkerbg bg-slate-100 "
             >
-              <Flex
-                gap="xs"
-                justify="flex-start"
-                align="flex-start"
-                direction="row"
-                wrap="wrap"
-              >
-                <IconArrowBigDown />
-                <Text c="teal.4" fz="lg" fw={"bold"}>
+              <div className="flex flex-row flex-wrap gap-3">
+                <IconArrowBigDown color="#bd93f9"/>
+                <Text c="#bd93f9" fz="lg" className="text-white font-base md:font-bold">
                   Total Received{" "}
                 </Text>
-              </Flex>
+              </div>
 
               <Text mt={"md"}>{walletData?.inputs[0].value} BTC</Text>
             </Paper>
@@ -105,47 +93,31 @@ export default function WalletDetails({ walletData, walletHash }) {
             <Paper
               shadow="md"
               radius={"md"}
-              p="lg"
-              m={"xs"}
-              maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
-              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+              className="px-6 py-5 text-black dark:text-white dark:bg-darkerbg bg-slate-100 "
             >
-              <Flex
-                gap="xs"
-                justify="flex-start"
-                align="flex-start"
-                direction="row"
-                wrap="wrap"
-              >
-                <IconArrowBigTop />
-                <Text c="teal.4" fz="lg" fw={"bold"}>
+              <div className="flex flex-row flex-wrap gap-3">
+                <IconArrowBigTop color="#bd93f9"/>
+                <Text c="#bd93f9" fz="lg" className="text-white font-base md:font-bold">
                   Total Sent{" "}
                 </Text>
-              </Flex>
+              </div>
 
               <Text mt={"md"}>{walletData?.outputs[0].value} BTC</Text>
             </Paper>
+          </div>
 
+          <div className="grid grid-cols-1 gap-5 mt-5 md:grid-cols-2">
             <Paper
               shadow="md"
               radius={"md"}
-              p="lg"
-              m={"xs"}
-              maw={{ base: "100%", sm: "100%", md: "100%", lg: "100%" }}
-              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+              className="px-6 py-5 text-black dark:text-white dark:bg-darkerbg bg-slate-100 "
             >
-              <Flex
-                gap="xs"
-                justify="flex-start"
-                align="flex-start"
-                direction="row"
-                wrap="wrap"
-              >
-                <IconCurrencyBitcoin />
-                <Text c="teal.4" fz="lg" fw={"bold"}>
+              <div className="flex flex-row flex-wrap gap-3">
+                <IconCurrencyBitcoin color="#bd93f9"/>
+                <Text c="#bd93f9" fz="lg" className="text-white font-base md:font-bold">
                   Final Balance{" "}
                 </Text>
-              </Flex>
+              </div>
 
               <Text mt={"md"}>
                 {parseFloat(
@@ -156,30 +128,29 @@ export default function WalletDetails({ walletData, walletHash }) {
                 BTC
               </Text>
             </Paper>
-          </Flex>
-        </Grid.Col>
-        <Grid.Col span={10} md={7} lg={7}>
-          <Flex
-            mih={"80vh"}
-            justify="center"
-            align="center"
-            direction="row"
-            wrap="wrap"
-          >
+
             <Paper
               shadow="md"
-              radius={"lg"}
-              p="xl"
-              m={"xs"}
-              miw={{ base: "100%", sm: "100%", md: "80%", lg: "80%" }}
-              align="center"
-              className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+              radius={"md"}
+              className="px-6 py-5 text-black dark:text-white dark:bg-darkerbg bg-slate-100 "
             >
-              <Speedometer walletHash={walletHash} />
+              <div className="flex flex-row flex-wrap gap-3">
+                <IconCurrencyDollar color="#bd93f9"/>
+                <Text c="#bd93f9" fz="lg" className="text-white font-base md:font-bold">
+                  Final Balance (USD)
+                </Text>
+              </div>
+                <Text mt={"md"}>
+                {parseFloat(
+                  Math.abs(
+                    walletData?.outputs[0].value_usd - walletData?.inputs[0].value_usd
+                  )
+                ).toFixed(8)}{" "}
+              </Text>
             </Paper>
-          </Flex>
-        </Grid.Col>
-      </Grid>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

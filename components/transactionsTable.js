@@ -68,7 +68,7 @@ export default function TransactionsTable({ transactionInfo }) {
   return (
     <Paper
       sx={{ height: 400, wordWrap: "break-word",width: "100%" }}
-      className="text-black dark:text-white dark:bg-darkerbg bg-slate-100"
+      className="flex justify-center text-black dark:text-white dark:bg-darkerbg bg-slate-100"
     >
       <DataTable
         classNames={classes}

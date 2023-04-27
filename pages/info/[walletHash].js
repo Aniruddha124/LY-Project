@@ -20,27 +20,6 @@ export default function Details() {
   const [walletData, setWalletData] = useState(null);
 
   useEffect(() => {
-    async function fetchTransactionData() {
-      if (walletHash != undefined)
-        try {
-          const response = await fetch(
-            `http://127.0.0.1:5000/transactions/${walletHash}`
-          );
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const data = await response.json();
-          console.log(data);
-          setInputData(data.bitcoin.inputs);
-          setOutputData(data.bitcoin.outputs);
-          setLoading(false);
-
-          console.log(inputData);
-        } catch (error) {
-          setError(error);
-        }
-    }
-
     async function fetchWalletData() {
       if (walletHash != undefined)
         try {
@@ -52,10 +31,31 @@ export default function Details() {
             throw new Error("Network response was not ok");
           }
           const data = await response.json();
+          console.log("wallet data", data.bitcoin)
           setWalletData(data.bitcoin);
         } catch (error) {
           setError(error);
           setLoading(false);
+        }
+    }
+
+    async function fetchTransactionData() {
+      if (walletHash != undefined)
+        try {
+          const response = await fetch(
+            `http://127.0.0.1:5000/transactions/${walletHash}`
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          setInputData(data.bitcoin.inputs);
+          setOutputData(data.bitcoin.outputs);
+          setLoading(false);
+
+          console.log(inputData);
+        } catch (error) {
+          setError(error);
         }
     }
 

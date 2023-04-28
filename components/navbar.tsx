@@ -66,7 +66,7 @@ interface NavbarLinkProps {
 function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
   const { classes, cx } = useStyles();
   return (
-    <Tooltip label={label} position="right" transitionDuration={0}>
+    <Tooltip label={label} position="right" >
       <UnstyledButton
         onClick={onClick}
         className={cx(classes.link, { [classes.active]: active })}
@@ -89,7 +89,6 @@ export default function NavbarMinimal() {
   const links = mockdata.map((link, index) => (
     <NavbarLink
       {...link}
-      key={link.label}
       active={index === active}
       onClick={() => setActive(index)}
     />
@@ -97,8 +96,8 @@ export default function NavbarMinimal() {
 
   return (
     <>
-      <Navbar height={"93vh"} width={{ base: 80 }} p="md">
-        <Navbar.Section grow mt={10}>
+      <Navbar height={"93vh"} width={{ base: 80 }} p="md" >
+        <Navbar.Section grow mt={10} >
           <Stack justify="center" spacing={0}>
             {links}
           </Stack>

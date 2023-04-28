@@ -52,14 +52,12 @@ export default function App(props: AppProps) {
               main: {
                 backgroundColor:
                   theme.colorScheme === "dark"
-                    ? theme.colors.dark[8]
-                    : theme.colors.gray[0],
+                    ? "#282a36"
+                    : theme.colors.gray[2],
               },
             })}
             navbarOffsetBreakpoint="sm"
             asideOffsetBreakpoint="sm"
-            navbar={<NavbarMinimal />}
-            // header={<HeaderAction />}
             header={<HeaderAction />}
           >
             {/* {props} */}

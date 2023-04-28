@@ -20,7 +20,7 @@ export default function Details() {
     async function fetchTransactionData() {
       if (walletHash != undefined)
         try {
-          // console.log(`http://127.0.0.1:5000/transactions/${walletHash}`);
+          console.log(`http://127.0.0.1:5000/transactions/${walletHash}`);
           const response = await fetch(
             `http://127.0.0.1:5000/transactions/${walletHash}`
           );
@@ -44,11 +44,19 @@ export default function Details() {
           const response = await fetch(
             `http://127.0.0.1:5000/wallet/${walletHash}`
           );
+          const response2 = await fetch(
+            `http://127.0.0.1:5000/score/${walletHash}`
+          );
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           const data = await response.json();
+          const data2 = await response2.json();
+          
           console.log("wallet data", data);
+          console.log("here-------------------------------")
+          console.log("score",data2);
+          
           setWalletData(data.bitcoin);
         } catch (error) {
           setError(error);

@@ -17,7 +17,7 @@ export default function TransactionsTable({ transactionInfo }) {
   //     Timestamp, Block, Amount, Transaction;
   //   }
   // );
-  const transactions = rawTransactions.map(
+  const transactions = rawTransactions?.map(
     ({
       block: {
         timestamp: { time: Timestamp },
@@ -40,12 +40,12 @@ export default function TransactionsTable({ transactionInfo }) {
   }, [pageSize]);
 
   const [page, setPage] = useState(1);
-  const [records, setRecords] = useState(transactions.slice(0, pageSize));
+  const [records, setRecords] = useState(transactions?.slice(0, pageSize));
 
   useEffect(() => {
     const from = (page - 1) * pageSize;
     const to = from + pageSize;
-    setRecords(transactions.slice(from, to));
+    setRecords(transactions?.slice(from, to));
   }, [page, pageSize]);
 
   return (
@@ -62,7 +62,7 @@ export default function TransactionsTable({ transactionInfo }) {
             width: "100%",
           },
         ]}
-        totalRecords={transactions.length}
+        totalRecords={transactions?.length}
         recordsPerPage={pageSize}
         page={page}
         onPageChange={(p) => setPage(p)}

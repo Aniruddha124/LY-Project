@@ -16,6 +16,7 @@ import {
   IconCurrencyBitcoin,
 } from "@tabler/icons";
 import ToggleDarkMode from "./toggleDarkMode";
+import { useRouter } from "next/router";
 
 const HEADER_HEIGHT = 60;
 
@@ -76,20 +77,24 @@ interface HeaderActionProps {
 export default function HeaderAction() {
   const { classes } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
+  const router = useRouter();
+  const handleHomeClick = () => {
+    router.push("/");
+  };
 
   return (
-    <Header height={HEADER_HEIGHT} sx={{ borderBottom: 4 }} mb={120}>
+    <Header
+      height={HEADER_HEIGHT}
+      sx={{ borderBottom: 4 }}
+      mb={120}
+      className="bg-gray-100 dark:bg-darkerbg"
+    >
       <Container className={classes.inner} fluid>
         <Group>
-          {/* <Burger
-            opened={opened}
-            onClick={toggle}
-            className={classes.burger}
-            size="sm"
-          /> */}
-          <IconCurrencyBitcoin size={38} />
-          <Space w="sm" />
-          <h3 style={{ fontWeight: 800 }}>VerBTC</h3>
+          <div className="flex cursor-pointer" onClick={() => handleHomeClick()}>
+            <IconCurrencyBitcoin size={38} color="#EBD053" />
+            <h3 className="text-2xl font-bold text-[#EBD053]">VerBTC</h3>
+          </div>
         </Group>
         <ToggleDarkMode />
       </Container>

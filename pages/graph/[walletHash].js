@@ -19,7 +19,7 @@ export default function Graph_Test() {
         if (walletHash != undefined)
             try {
                 console.log("walletHash: ", walletHash)
-
+                console.log("graph2");
                 const response = await fetch(
                     `http://127.0.0.1:5000/project_node/${walletHash}`
                 );
@@ -28,6 +28,7 @@ export default function Graph_Test() {
                 }
                 const data = await response.json();
                 console.log(data);
+                console.log("graph2");
                 console.log(data.nodes.length);
               
                     setNodeLength(data.nodes.length);
@@ -101,7 +102,7 @@ export default function Graph_Test() {
                             {hydrated && <Graph graph={graph} options={options} events={events} />} 
                                 </Paper> : <></>}
             
-         
+                             
       
         
         </div>

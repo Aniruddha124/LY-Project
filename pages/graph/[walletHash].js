@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Graph from "react-graph-vis";
 import { useRouter } from "next/router";
 import { Text, Paper } from "@mantine/core";
+import AccountTreeIcon from "@mui/icons-material/AccountTree";
+
 
 export default function Graph_Test() {
   const router = useRouter();
@@ -24,10 +26,27 @@ export default function Graph_Test() {
             throw new Error("Network response was not ok");
           }
           const data = await response.json();
+          // console.log("-------------------");
           console.log(data);
-          console.log(data.nodes.length);
+          // console.log(data.nodes.length);
 
           setNodeLength(data.nodes.length);
+
+          data.nodes.map(node=>{
+
+            console.log(node.id);
+
+            node.hash=node.label;
+            node.label=node.label.slice(0,5);
+            // node.labelOffset={ y: 25 }
+            node.shape='icon'
+          node.font={color:"white"}
+          node.icon={face :'FontAwesome',code:'f2bd',color:'white'}
+
+            const color= node.score==0 || node.score==-1 ? '#50fa7b' : 
+                        node.score==1 ? '#ff5555': 'red';
+            node.color=color;
+          })
 
           setGraph(data);
           setHydrated(true);
@@ -43,7 +62,7 @@ export default function Graph_Test() {
     layout: {
       hierarchical: false,
     },
-    shape: "circle",
+  
     physics: {
       enabled: true,
       hierarchicalRepulsion: {
@@ -55,6 +74,7 @@ export default function Graph_Test() {
       },
       solver: "hierarchicalRepulsion",
     },
+    
     edges: {
       // color: "#000000"
       color: "#ffffff",
@@ -65,6 +85,8 @@ export default function Graph_Test() {
           type: "arrow",
         },
       },
+    
+      
     },
 
     height: "500px",
@@ -102,12 +124,14 @@ export default function Graph_Test() {
       {nodeLength > 0 ? (
         <Paper shadow="xs" p="md">
           {hydrated && (
-            <Graph graph={graph} options={options} events={events} />
+            <Graph graph={graph}  options={options} events={events} />
           )}
         </Paper>
       ) : (
         <></>
       )}
+
+   
     </div>
   );
 }

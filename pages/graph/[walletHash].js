@@ -12,9 +12,10 @@ export default function Graph_Test() {
   const [hydrated, setHydrated] = useState(false);
   const [nodeLength, setNodeLength] = useState(-1);
   const [graph, setGraph] = useState([]);
+  const [nodeInfo, setNodeInfo] = useState([]);
 
-  async function handleClick(event){
-    console.log('Node clicked: ',event.nodes);
+  async function handleClick(event) {
+    console.log('Node clicked: ', event.nodes);
     const clickedNodeId = event.nodes[0]; // Get the ID of the clicked node
     // console.log(graph)
     // console.log(clickedNodeId)
@@ -33,7 +34,7 @@ export default function Graph_Test() {
       try {
         const response = await fetch(`http://127.0.0.1:5000/wallet/${nodeHash}`);
         const data = await response.json();
-        console.log(data);
+        return data;
       } catch (error) {
         console.error(error);
       }
@@ -41,10 +42,10 @@ export default function Graph_Test() {
 
     // fetchWallet(nodeHash)
     // console.log(fetchWallet(nodeHash).json().bitcoin)
-    const response1 = fetchWallet(nodeHash)
-    const data1 = await response1.bitcoin
-    console.log(data1)
-    
+    const response1 = await fetchWallet(nodeHash)
+    setNodeInfo(response1.bitcoin)
+    console.log(response1.bitcoin)
+
   }
 
   useEffect(() => {
@@ -67,20 +68,20 @@ export default function Graph_Test() {
 
           setNodeLength(data.nodes.length);
 
-          data.nodes.map(node=>{
+          data.nodes.map(node => {
 
             console.log(node.id);
 
-            node.hash=node.label;
-            node.label=node.label.slice(0,5)+"...";
+            node.hash = node.label;
+            node.label = node.label.slice(0, 5) + "...";
             // node.labelOffset={ y: 25 }
-          node.shape='circle'
-          node.font={color:"white"}
-          node.icon={face :'FontAwesome',code:'f007',color:'white'}
+            node.shape = 'circle'
+            node.font = { color: "white" }
+            node.icon = { face: 'FontAwesome', code: 'f007', color: 'white' }
 
-            const color= node.score==0 || node.score==-1 ? '#50fa7b' : 
-                        node.score==1 ? '#ff5555': 'red';
-            node.color=color;
+            const color = node.score == 0 || node.score == -1 ? '#50fa7b' :
+            node.score == 1 ? '#ff5555' : 'red';
+            node.color = color;
           })
 
           setGraph(data);
@@ -97,7 +98,7 @@ export default function Graph_Test() {
     layout: {
       hierarchical: false,
     },
-  
+
     physics: {
       enabled: true,
       hierarchicalRepulsion: {
@@ -109,7 +110,7 @@ export default function Graph_Test() {
       },
       solver: "hierarchicalRepulsion",
     },
-    
+
     edges: {
       // color: "#000000"
       color: "#ffffff",
@@ -120,8 +121,8 @@ export default function Graph_Test() {
           type: "arrow",
         },
       },
-    
-      
+
+
     },
 
     height: "500px",
@@ -160,14 +161,56 @@ export default function Graph_Test() {
       {nodeLength > 0 ? (
         <Paper shadow="xs" p="md">
           {hydrated && (
-            <Graph graph={graph}  options={options} events={events} />
+            <div className="relative border">
+              <Graph graph={graph} options={options} events={events} />
+              <div>
+                <div className="absolute border right-0 bottom-0  p-4 bg-slate-800 m-3 ">
+                <div>
+                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
+                      Address{" "}
+                    </Text>
+                    <Text mt={"md"}>
+                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                      Address_here
+                    </Text>
+                  </div>
+                  <div>
+                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
+                      Transactions{" "}
+                    </Text>
+                    <Text mt={"md"}>
+                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                      total_transactions_here
+                    </Text>
+                  </div>
+                  <div>
+                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
+                      Received{" "}
+                    </Text>
+                    <Text mt={"md"}>
+                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                      rec_info
+                    </Text>
+                  </div>
+                  <div>
+                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
+                      Sent{" "}
+                    </Text>
+                    <Text mt={"md"}>
+                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                      sent_info
+                    </Text>
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </Paper>
       ) : (
         <></>
       )}
 
-   
+
     </div>
   );
 }

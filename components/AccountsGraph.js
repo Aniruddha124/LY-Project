@@ -7,12 +7,11 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { dark } from "@mui/material/styles/createPalette";
 
 
-export default function Graph_Test() {
-  const router = useRouter();
-  const { walletHash } = router.query;
-  const [hydrated, setHydrated] = useState(false);
-  const [nodeLength, setNodeLength] = useState(-1);
-  const [graph, setGraph] = useState([]);
+export default function AccountsGraph({walletHash,hydrated,nodeLength,graph}) {
+  
+ 
+
+ 
   const [nodeInfo, setNodeInfo] = useState();
   const [showNodeInfo,setShowNodeInfo]=useState(false);
 
@@ -76,54 +75,54 @@ export default function Graph_Test() {
   }
 
   useEffect(() => {
-    async function fetchData() {
-      setGraph([]);
-      if (walletHash != undefined)
-        try {
-          console.log("walletHash: ", walletHash);
+    // async function fetchData() {
+    //   setGraph([]);
+    //   if (walletHash != undefined)
+    //     try {
+    //       console.log("walletHash: ", walletHash);
 
-          const response = await fetch(
-            `http://127.0.0.1:5000/project_node/${walletHash}`
-          );
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const data = await response.json();
-          // console.log("-------------------");
-          console.log(data);
-          // console.log(data.nodes.length);
+    //       const response = await fetch(
+    //         `http://127.0.0.1:5000/project_node/${walletHash}`
+    //       );
+    //       if (!response.ok) {
+    //         throw new Error("Network response was not ok");
+    //       }
+    //       const data = await response.json();
+    //       // console.log("-------------------");
+    //       console.log(data);
+    //       // console.log(data.nodes.length);
 
-          setNodeLength(data.nodes.length);
+    //       setNodeLength(data.nodes.length);
 
-          data.nodes.map(node => {
+    //       data.nodes.map(node => {
 
-            console.log(node.id);
+    //         console.log(node.id);
 
-            node.hash = node.label;
-            node.label = node.label.slice(0, 5) + "...";
-            // node.labelOffset={ y: 25 }
-            node.shape = 'circle'
-            node.font = { color: "white" }
-            node.icon = { face: 'FontAwesome', code: 'f007', color: 'white' }
+    //         node.hash = node.label;
+    //         node.label = node.label.slice(0, 5) + "...";
+    //         // node.labelOffset={ y: 25 }
+    //         node.shape = 'circle'
+    //         node.font = { color: "white" }
+    //         node.icon = { face: 'FontAwesome', code: 'f007', color: 'white' }
 
-            const color = node.score == 0 || node.score == -1 ? '#50fa7b' :
-            node.score == 1 ? '#ff5555' : 'red';
-            node.color = color;
-          })
+    //         const color = node.score == 0 || node.score == -1 ? '#50fa7b' :
+    //         node.score == 1 ? '#ff5555' : 'red';
+    //         node.color = color;
+    //       })
 
-          setGraph(data);
-          setHydrated(true);
-        } catch (error) {
-          console.log(error);
-        }
-    }
+    //       setGraph(data);
+    //       setHydrated(true);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    // }
     // setHydrated(true);
 
-    fetchData();
+    //fetchData();
     setShowNodeInfo(false);
 
    
-  }, [walletHash]);
+  }, []);
 
   const options = {
     layout: {
@@ -203,7 +202,7 @@ export default function Graph_Test() {
                           Address{" "}
                         </Text>
                         <Text className="cursor-pointer underline"
-                  >
+                        >
                           <Link href={"./"+nodeInfo?.address}>{nodeInfo?.address}</Link>
                           {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
                          

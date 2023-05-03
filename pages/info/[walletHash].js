@@ -5,8 +5,9 @@ import { useRouter } from "next/router";
 import WalletDetails from "../../components/primaryInfo";
 import Dashboard from "../../components/dashboard";
 import { useEffect, useState } from "react";
-import Graph_Test from "../graph/[walletHash]";
+import Graph_Test from "../../components/AccountsGraph";
 import { AnimatePresence, motion } from "framer-motion";
+import AccountsGraph from "../../components/AccountsGraph";
 
 export default function Details() {
   const router = useRouter();
@@ -18,6 +19,10 @@ export default function Details() {
   const [error, setError] = useState(null);
 
   const [walletData, setWalletData] = useState(null);
+  const [hydrated, setHydrated] = useState(false);
+  const [nodeLength, setNodeLength] = useState(-1);
+
+  const [graph, setGraph] = useState([]);
 
   useEffect(() => {
     async function fetchTransactionData() {
@@ -82,8 +87,54 @@ export default function Details() {
         }
     }
 
+    async function fetchData() {
+      setGraph([]);
+      if (walletHash != undefined)
+        try {
+          console.log("walletHash: ", walletHash);
+
+          const response = await fetch(
+            `http://127.0.0.1:5000/project_node/${walletHash}`
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          // console.log("-------------------");
+          console.log(data);
+          // console.log(data.nodes.length);
+
+          setNodeLength(data.nodes.length);
+
+          data.nodes.map(node => {
+
+            console.log(node.id);
+
+            node.hash = node.label;
+            node.label = node.label.slice(0, 5) + "...";
+            // node.labelOffset={ y: 25 }
+            node.shape = 'circle'
+            node.font = { color: "white" }
+            node.icon = { face: 'FontAwesome', code: 'f007', color: 'white' }
+
+            const color = node.score == 0 || node.score == -1 ? '#50fa7b' :
+            node.score == 1 ? '#ff5555' : 'red';
+            node.color = color;
+          })
+
+          setGraph(data);
+          setHydrated(true);
+        } catch (error) {
+          console.log(error);
+        }
+    }
+ 
+
+
     fetchTransactionData();
     fetchWalletData();
+    fetchData();
+
   }, [walletHash]);
 
   return (
@@ -152,7 +203,14 @@ export default function Details() {
           </Tabs.Panel>
 
           <Tabs.Panel value="graph" pt="xs">
-            <Graph_Test />
+            <AccountsGraph   
+              walletHash={walletHash} 
+             
+              hydrated={hydrated}
+              nodeLength={nodeLength}
+              graph={graph}
+
+              />
           </Tabs.Panel>
         </div>
       </Tabs>

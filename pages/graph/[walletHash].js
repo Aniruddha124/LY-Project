@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Graph from "react-graph-vis";
 import { useRouter } from "next/router";
 import { Text, Paper } from "@mantine/core";
+import Link from "next/link";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import { dark } from "@mui/material/styles/createPalette";
 
@@ -12,39 +13,65 @@ export default function Graph_Test() {
   const [hydrated, setHydrated] = useState(false);
   const [nodeLength, setNodeLength] = useState(-1);
   const [graph, setGraph] = useState([]);
-  const [nodeInfo, setNodeInfo] = useState([]);
+  const [nodeInfo, setNodeInfo] = useState();
+  const [showNodeInfo,setShowNodeInfo]=useState(false);
 
   async function handleClick(event) {
+
+    setShowNodeInfo(false); 
+
+   
+    setNodeInfo();
+   
     console.log('Node clicked: ', event.nodes);
     const clickedNodeId = event.nodes[0]; // Get the ID of the clicked node
     // console.log(graph)
-    // console.log(clickedNodeId)
+    console.log(clickedNodeId)
     const nodes = graph.nodes; // Get an array of all the nodes in the graph
     const clickedNode = nodes.find(node => node.id === clickedNodeId); // Find the clicked node in the array
     // console.log('Clicked node details:', clickedNode.hash);
-    const nodeHash = clickedNode.hash
+    const nodeHash = clickedNode?.hash
+    console.log(nodeHash);
 
     // await response = (res) => fetch(
     //   `http://127.0.0.1:5000/wallet/${nodeHash}`
     // ).then(
     //   console.log(res.json())
     // )
+    
+    if(nodeHash!=undefined){
+          const fetchWallet = async () => {
+            try {
+              const response = await fetch(`http://127.0.0.1:5000/wallet/${nodeHash}`);
+              const data = await response.json();
+              return data;
+            } catch (error) {
+              console.error(error);
+            }
+          };
 
-    const fetchWallet = async () => {
-      try {
-        const response = await fetch(`http://127.0.0.1:5000/wallet/${nodeHash}`);
-        const data = await response.json();
-        return data;
-      } catch (error) {
-        console.error(error);
-      }
-    };
+          // fetchWallet(nodeHash)
+          // console.log(fetchWallet(nodeHash).json().bitcoin)
+          const response1 = await fetchWallet(nodeHash)
 
-    // fetchWallet(nodeHash)
-    // console.log(fetchWallet(nodeHash).json().bitcoin)
-    const response1 = await fetchWallet(nodeHash)
-    setNodeInfo(response1.bitcoin)
-    console.log(response1.bitcoin)
+        
+          
+          console.log(response1.bitcoin)
+          const data={};
+          data['address']=nodeHash;
+          data['total_transactions']=response1?.bitcoin.inputs[0]?.count
+                                      + response1?.bitcoin?.outputs[0]?.count;
+          data['total_recieved']=response1?.bitcoin?.inputs[0]?.value;
+          data['total_sent']=response1?.bitcoin?.outputs[0]?.value;
+
+          //console.log(response1.bitcoin.inputs[0].count)
+          setNodeInfo(data)
+          setShowNodeInfo(true)
+    }
+
+  
+
+    console.log(nodeInfo);
 
   }
 
@@ -91,7 +118,11 @@ export default function Graph_Test() {
         }
     }
     // setHydrated(true);
+
     fetchData();
+    setShowNodeInfo(false);
+
+   
   }, [walletHash]);
 
   const options = {
@@ -139,7 +170,7 @@ export default function Graph_Test() {
     // <Graph graph={graph}></Graph>
     <div>
       {nodeLength == 0 ? (
-        <Paper shadow="xs" p="md">
+        <Paper className="px-2 py-4  shadow-md bg-darkerbg h-[500px]">
           <Text ta="center" fz="xl" fw={700}>
             No Graph
           </Text>
@@ -149,7 +180,7 @@ export default function Graph_Test() {
       )}
 
       {nodeLength == -1 ? (
-        <Paper shadow="xs" p="md">
+        <Paper className=" px-2 py-4 shadow-md bg-darkerbg h-[500px]">
           <Text ta="center" fz="xl" fw={700}>
             Loading Graph
           </Text>
@@ -159,53 +190,61 @@ export default function Graph_Test() {
       )}
 
       {nodeLength > 0 ? (
-        <Paper shadow="xs" p="md">
+        <div className=" shadow-md bg-darkerbg" >
           {hydrated && (
-            <div className="relative border">
+            <div className="relative">
               <Graph graph={graph} options={options} events={events} />
-              <div>
-                <div className="absolute border right-0 bottom-0  p-4 bg-slate-800 m-3 ">
-                <div>
-                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
-                      Address{" "}
-                    </Text>
-                    <Text mt={"md"}>
-                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
-                      Address_here
-                    </Text>
-                  </div>
+              {
+                showNodeInfo ==true?
                   <div>
-                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
-                      Transactions{" "}
-                    </Text>
-                    <Text mt={"md"}>
-                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
-                      total_transactions_here
-                    </Text>
-                  </div>
-                  <div>
-                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
-                      Received{" "}
-                    </Text>
-                    <Text mt={"md"}>
-                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
-                      rec_info
-                    </Text>
-                  </div>
-                  <div>
-                    <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold">
-                      Sent{" "}
-                    </Text>
-                    <Text mt={"md"}>
-                      {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
-                      sent_info
-                    </Text>
-                  </div>
-                </div>
-              </div>
+                    <div className="absolute rounded-md right-0 bottom-0  p-4 bg-dark-selection md:m-3 m-1">
+                    <div className="mb-3">
+                        <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold m-{'sm'}">
+                          Address{" "}
+                        </Text>
+                        <Text className="cursor-pointer underline"
+                  >
+                          <Link href={"./"+nodeInfo?.address}>{nodeInfo?.address}</Link>
+                          {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                         
+                         
+                        </Text>
+                      </div>
+                      <div className="mb-3">
+                        <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold m-{'sm'}">
+                          Transactions{" "}
+                        </Text>
+                        <Text >
+                        {nodeInfo?.total_transactions}
+                          {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                        
+                        </Text>
+                      </div>
+                      <div className="mb-3">
+                        <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold m-{'sm'}">
+                          Received{" "}
+                        </Text>
+                        <Text>
+                        {nodeInfo?.total_recieved} BTC
+                          {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                         
+                        </Text>
+                      </div>
+                      <div >
+                        <Text c="#bd93f9" fz="sm" className="text-white font-base md:font-bold m-{'sm'}">
+                          Sent{" "}
+                        </Text>
+                        <Text >
+                          {/* {nodeInfo?.inputs[0]?.count + nodeInfo?.outputs[0]?.count} */}
+                          {nodeInfo?.total_sent} BTC
+                        </Text>
+                      </div>
+                    </div>
+                  </div>:<></>
+              }
             </div>
           )}
-        </Paper>
+        </div>
       ) : (
         <></>
       )}

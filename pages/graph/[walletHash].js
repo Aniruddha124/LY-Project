@@ -3,6 +3,7 @@ import Graph from "react-graph-vis";
 import { useRouter } from "next/router";
 import { Text, Paper } from "@mantine/core";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
+import { dark } from "@mui/material/styles/createPalette";
 
 
 export default function Graph_Test() {
@@ -11,6 +12,40 @@ export default function Graph_Test() {
   const [hydrated, setHydrated] = useState(false);
   const [nodeLength, setNodeLength] = useState(-1);
   const [graph, setGraph] = useState([]);
+
+  async function handleClick(event){
+    console.log('Node clicked: ',event.nodes);
+    const clickedNodeId = event.nodes[0]; // Get the ID of the clicked node
+    // console.log(graph)
+    // console.log(clickedNodeId)
+    const nodes = graph.nodes; // Get an array of all the nodes in the graph
+    const clickedNode = nodes.find(node => node.id === clickedNodeId); // Find the clicked node in the array
+    // console.log('Clicked node details:', clickedNode.hash);
+    const nodeHash = clickedNode.hash
+
+    // await response = (res) => fetch(
+    //   `http://127.0.0.1:5000/wallet/${nodeHash}`
+    // ).then(
+    //   console.log(res.json())
+    // )
+
+    const fetchWallet = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/wallet/${nodeHash}`);
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // fetchWallet(nodeHash)
+    // console.log(fetchWallet(nodeHash).json().bitcoin)
+    const response1 = fetchWallet(nodeHash)
+    const data1 = await response1.bitcoin
+    console.log(data1)
+    
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -37,11 +72,11 @@ export default function Graph_Test() {
             console.log(node.id);
 
             node.hash=node.label;
-            node.label=node.label.slice(0,5);
+            node.label=node.label.slice(0,5)+"...";
             // node.labelOffset={ y: 25 }
-            node.shape='icon'
+          node.shape='circle'
           node.font={color:"white"}
-          node.icon={face :'FontAwesome',code:'f2bd',color:'white'}
+          node.icon={face :'FontAwesome',code:'f007',color:'white'}
 
             const color= node.score==0 || node.score==-1 ? '#50fa7b' : 
                         node.score==1 ? '#ff5555': 'red';
@@ -96,6 +131,7 @@ export default function Graph_Test() {
     select: function (event) {
       var { nodes, edges } = event;
     },
+    click: handleClick,
   };
 
   return (

@@ -75,7 +75,7 @@ export default function Home() {
             <IconCurrencyBitcoin size={50} color="#EBD053" className="p-1" />
             <input
               type="text"
-              placeholder="Enter your text here..."
+              placeholder="Enter an address"
               className="w-full px-2 py-4 text-xl bg-white rounded-sm dark:text-white text-darkerbg focus:outline-none focus:border-none dark:bg-darkerbg"
               onChange={(e) => setAddress(e.target.value)}
             />
